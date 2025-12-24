@@ -1,67 +1,170 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* قسم الهيرو مع صورة الخلفية */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    /* استبدل الرابط أدناه برابط صورتك الخاصة */
+    background: url('https://images.unsplash.com/photo-1581578731548-c64695ce6958?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+/* طبقة تظليل فوق الصورة لتوضيح النص */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+    z-index: 1;
+}
+
+/* القائمة العلوية */
+.navbar {
+    position: relative;
+    z-index: 10;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #3498db;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    margin-right: 30px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #25d366;
+}
+
+/* محتوى وسط الصفحة */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    padding: 0 10%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: #3498db;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* الأزرار */
+.cta-buttons {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #333;
-}
-
-.container {
-    text-align: center;
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 400px;
-    width: 90%;
-}
-
-header h1 {
-    color: #2c3e50;
-    font-size: 1.5rem;
-}
-
-.card {
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #eee;
-    border-radius: 10px;
+    gap: 20px;
 }
 
 .btn-whatsapp {
-    display: inline-block;
     background-color: #25d366;
     color: white;
-    padding: 12px 25px;
-    text-decoration: none;
+    padding: 15px 35px;
     border-radius: 50px;
+    text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease;
 }
 
 .btn-whatsapp:hover {
-    transform: scale(1.05);
     background-color: #128c7e;
+    transform: translateY(-5px);
 }
 
-.features {
+.btn-outline {
+    border: 2px solid white;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #333;
+}
+
+/* بار الإحصائيات الأسفل */
+.stats-bar {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    padding: 30px;
+    border-top: 1px solid rgba(255,255,255,0.2);
 }
 
-.feature-item {
-    font-size: 0.9rem;
-    color: #7f8c8d;
+.stat-item {
+    color: white;
+    text-align: center;
 }
 
-.feature-item i {
-    color: #3498db;
+.stat-item i {
     display: block;
+    font-size: 24px;
     margin-bottom: 5px;
+    color: #3498db;
+}
+
+/* تجاوب مع الجوال */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.2rem; }
+    .cta-buttons { flex-direction: column; }
+    .nav-links { display: none; }
 }
