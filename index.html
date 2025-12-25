@@ -3,53 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شركة كفاءات العالم للأستقدام</title>
+    
+    <!-- SEO Meta Tags الأساسية -->
+    <title>شركة كفاءات العالم للأستقدام - استقدام عاملات منزلية مدربة في السعودية</title>
+    <meta name="description" content="شركة كفاءات العالم تقدم خدمات استقدام العاملات المنزلية المدربات في السعودية. نوفر عاملات محترفات من مختلف الجنسيات بضمان وجودة عالية.">
+    <meta name="keywords" content="استقدام, عاملات منزلية, استقدام منازل, عمالة مدربة, استقدام في السعودية, كفاءات العالم, خادمات, شغالات">
+    
+    <!-- Open Graph للشبكات الاجتماعية -->
+    <meta property="og:title" content="شركة كفاءات العالم للأستقدام">
+    <meta property="og:description" content="خدمات استقدام العاملات المنزلية المدربات في السعودية">
+    <meta property="og:image" content="https://raw.githubusercontent.com/WWW-Alhnani-COM/ALKFAIH/main/a.png">
+    <meta property="og:url" content="https://alkfaih.vercel.app">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="شركة كفاءات العالم للأستقدام">
+    <meta name="twitter:description" content="خدمات استقدام العاملات المنزلية المدربات في السعودية">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://alkfaih.vercel.app/">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "شركة كفاءات العالم للأستقدام",
+        "description": "خدمات استقدام العاملات المنزلية المدربات في السعودية",
+        "url": "https://alkfaih.com",
+        "telephone": "+966552425251",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "SA",
+            "addressRegion": "السعودية"
+        },
+        "openingHours": "24/7",
+        "serviceType": "استقدام عمالة منزلية"
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Preconnect للموارد الخارجية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
 
     <div class="hero-section">
         <div class="overlay"></div>
         
-        <nav class="navbar">
-            <div class="logo"> كفاءات العالم <span>للاستقدام </span></div>
-            <ul class="nav-links">
-                <li><a href="#">الرئيسية</a></li>
-                
-                <li><a href="https://wa.me/966552425251">تواصل معنا</a></li>
+        <nav class="navbar" role="navigation" aria-label="القائمة الرئيسية">
+            <div class="logo" role="banner">
+                <a href="/" aria-label="الرئيسية">
+                    كفاءات العالم <span>للاستقدام</span>
+                </a>
+            </div>
+            <ul class="nav-links" role="menubar">
+                <li role="menuitem"><a href="#home" aria-current="page">الرئيسية</a></li>
+                <li role="menuitem"><a href="#about">من نحن</a></li>
+                <li role="menuitem"><a href="#services">خدماتنا</a></li>
+                <li role="menuitem"><a href="#nationalities">الجنسيات</a></li>
+                <li role="menuitem"><a href="#contact" rel="noopener noreferrer" target="_blank">تواصل معنا</a></li>
             </ul>
         </nav>
 
-        <div class="hero-content">
+        <main class="hero-content" id="home">
             <h1>استقدام نخبة من <span class="highlight">العاملات والمدربات</span></h1>
             <p>نوفر لكم أفضل الكوادر المنزلية المختارة بعناية لتلبية احتياجات الأسرة السعودية، بجودة وموثوقية عالية.</p>
             
             <div class="cta-buttons">
-                <a href="https://wa.me/966552425251" class="btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> تواصل معنا الآن
+                <a href="https://wa.me/966552425251" class="btn-whatsapp" 
+                   aria-label="تواصل معنا على واتساب" 
+                   rel="noopener noreferrer" 
+                   target="_blank">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i> تواصل معنا الآن
                 </a>
                 <br>
                 <br>
-                
             </div>
-        </div>
+        </main>
 
-        <div class="stats-bar">
+        <section class="stats-bar" aria-label="إحصائيات الشركة">
             <div class="stat-item">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-users" aria-hidden="true"></i>
                 <span>+1000 عميل سعيد</span>
             </div>
             <div class="stat-item">
-                <i class="fas fa-globe"></i>
+                <i class="fas fa-globe" aria-hidden="true"></i>
                 <span>مختلف الجنسيات</span>
             </div>
             <div class="stat-item">
-                <i class="fas fa-medal"></i>
+                <i class="fas fa-medal" aria-hidden="true"></i>
                 <span>عمالة مدربة</span>
             </div>
-        </div>
+        </section>
     </div>
 
+    <!-- أقسام إضافية لتحسين SEO -->
+    <section class="content-section" id="about">
+        <div class="container">
+            <h2>من نحن</h2>
+            <p>شركة كفاءات العالم للأستقدام - رائدون في مجال استقدام العمالة المنزلية المدربة في المملكة العربية السعودية. نتميز بخبرة طويلة في تقديم أفضل الكوادر المنزلية المدربة والمؤهلة.</p>
+        </div>
+    </section>
+
+    <section class="content-section" id="services">
+        <div class="container">
+            <h2>خدماتنا</h2>
+            <ul>
+                <li>استقدام العاملات المنزلية المدربات</li>
+                <li>استقدام الممرضات المؤهلات</li>
+                <li>استقدام السائقين المحترفين</li>
+                <li>خدمات التوظيف المنزلي الشامل</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section" id="nationalities">
+        <div class="container">
+            <h2>الجنسيات المتاحة</h2>
+            <p>نوفر عاملات من مختلف الجنسيات بما يتناسب مع احتياجات عملائنا الكرام.</p>
+        </div>
+    </section>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; <span id="current-year">2024</span> شركة كفاءات العالم للأستقدام. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- ملفات JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // تحديث السنة الحالية
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // تتبع أحداث النقر على الروابط
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if(this.href.includes('wa.me')) {
+                    gtag('event', 'click', {
+                        'event_category': 'WhatsApp',
+                        'event_label': 'Contact Click'
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Google Analytics (أضف كود التتبع الخاص بك) -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+    -->
 </body>
 </html>
