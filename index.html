@@ -6,56 +6,256 @@
     
     <title>شركة كفاءات العالم للأستقدام</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">    
-    <!-- Preconnect للموارد الخارجية -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-        <!-- Google Fonts للخطوط العربية -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- الخطوط العربية المختارة -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- SEO Meta Tags الأساسية -->
-    <title>شركة كفاءات العالم للأستقدام - استقدام عاملات منزلية مدربة في السعودية</title>
-    <meta name="description" content="شركة كفاءات العالم تقدم خدمات استقدام العاملات المنزلية المدربات في السعودية. نوفر عاملات محترفات من مختلف الجنسيات بضمان وجودة عالية.">
-    <meta name="keywords" content="استقدام, عاملات منزلية, استقدام منازل, عمالة مدربة, استقدام في السعودية, كفاءات العالم, خادمات, شغالات">
     
-    <!-- Open Graph للشبكات الاجتماعية -->
-    <meta property="og:title" content="شركة كفاءات العالم للأستقدام">
-    <meta property="og:description" content="خدمات استقدام العاملات المنزلية المدربات في السعودية">
-    <meta property="og:image" content="https://raw.githubusercontent.com/WWW-Alhnani-COM/ALKFAIH/main/a.png">
-    <meta property="og:url" content="https://alkfaih.vercel.app/">
-    <meta property="og:type" content="website">
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly" async defer></script>
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="شركة كفاءات العالم للأستقدام">
-    <meta name="twitter:description" content="خدمات استقدام العاملات المنزلية المدربات في السعودية">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://alkfaih.vercel.app/">
-    
-    <!-- Structured Data (Schema.org) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "شركة كفاءات العالم للأستقدام",
-        "description": "خدمات استقدام العاملات المنزلية المدربات في السعودية",
-        "url": "https://alkfaih.vercel.app/",
-        "telephone": "",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "SA",
-            "addressRegion": "السعودية"
-        },
-        "openingHours": "24/7",
-        "serviceType": "استقدام عمالة منزلية"
-    }
-    </script>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="a.png">
+    <style>
+        /* قسم الخريطة المعدلة */
+        .map-section {
+            padding: 80px 8%;
+            background: white;
+            text-align: center;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-family: 'Changa', sans-serif;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to left, #3498db, #25d366);
+            border-radius: 2px;
+        }
+
+        .map-description {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 40px;
+            font-family: 'Amiri', serif;
+            max-width: 800px;
+            margin-right: auto;
+            margin-left: auto;
+            line-height: 1.8;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin: 30px 0;
+            border: 1px solid #eaeaea;
+        }
+
+        #customMap {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 300px;
+            display: none;
+        }
+
+        .address-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            border-right: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .address-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.8rem;
+        }
+
+        .address-box p {
+            color: #555;
+            font-size: 1.2rem;
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        .address-box i {
+            color: #3498db;
+            margin-left: 10px;
+        }
+
+        .custom-marker {
+            position: absolute;
+            width: 50px;
+            height: 60px;
+            transform: translate(-50%, -100%);
+            z-index: 100;
+        }
+
+        .marker-pin {
+            width: 30px;
+            height: 30px;
+            border-radius: 50% 50% 50% 0;
+            background: #3498db;
+            position: absolute;
+            transform: rotate(-45deg);
+            left: 50%;
+            top: 0;
+            margin-left: -15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .marker-pin::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            margin: 3px;
+            background: white;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .marker-content {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: bold;
+            border: 2px solid #3498db;
+        }
+
+        .map-controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .map-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .map-btn i {
+            font-size: 18px;
+        }
+
+        /* الفوتر */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.1rem;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* تحسينات للجوال */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .map-wrapper {
+                height: 350px;
+            }
+            
+            .address-box {
+                padding: 20px 15px;
+            }
+            
+            .address-box h3 {
+                font-size: 1.5rem;
+            }
+            
+            .address-box p {
+                font-size: 1rem;
+            }
+            
+            .map-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .map-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .map-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -63,9 +263,10 @@
         <div class="overlay"></div>
         
         <nav class="navbar">
-            <div class="logo"> كفاءات العالم <span>للاستقدام </span></div>
+            <div class="logo"> كفاءات العالم <span>للاستقدام</span></div>
             <ul class="nav-links">
-                <li><a href="">تواصل معنا</a></li>
+                <li><a href="#map">خريطة الموقع</a></li>
+                <li><a href="https://wa.me/966552425251">تواصل معنا</a></li>
             </ul>
         </nav>
 
@@ -74,12 +275,9 @@
             <p>نوفر لكم أفضل الكوادر المنزلية المختارة بعناية لتلبية احتياجات الأسرة السعودية، بجودة وموثوقية عالية.</p>
             
             <div class="cta-buttons">
-                <a href="" class="btn-whatsapp">
+                <a href="https://wa.me/966552425251" class="btn-whatsapp">
                     <i class="fab fa-whatsapp"></i> تواصل معنا الآن
                 </a>
-                <br>
-                <br>
-                
             </div>
         </div>
 
@@ -106,17 +304,24 @@
             <p class="map-description">يمكنكم زيارة مكتبنا في جازان للتعرف على خدماتنا مباشرةً. نحن هنا لخدمتكم على مدار الأسبوع.</p>
             
             <div class="map-wrapper">
-                <!-- خريطة جوجل ماب المضمنة -->
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.759634755655!2d42.57454537505811!3d16.88913408055591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15653d3d0f2d11f5%3A0x7e30c1b4d5c8d2c2!2sGGDB7677%2C%202618%2C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1%2C%20%D8%AC%D8%A7%D8%B2%D8%A7%D9%86%2082722%2C%20%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9!5e0!3m2!1sen!2sus!4v1648159472347!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="خريطة موقع شركة كفاءات العالم للاستقدام في جازان">
-                </iframe>
+                <!-- خريطة جوجل ماب المخصصة -->
+                <div id="customMap"></div>
+                
+                <!-- عناصر التحكم في الخريطة -->
+                <div class="map-controls">
+                    <button class="map-btn" onclick="zoomIn()">
+                        <i class="fas fa-search-plus"></i> تكبير
+                    </button>
+                    <button class="map-btn" onclick="zoomOut()">
+                        <i class="fas fa-search-minus"></i> تصغير
+                    </button>
+                    <button class="map-btn" onclick="resetMap()">
+                        <i class="fas fa-sync-alt"></i> إعادة تعيين
+                    </button>
+                    <button class="map-btn" onclick="getDirections()">
+                        <i class="fas fa-directions"></i> الحصول على اتجاهات
+                    </button>
+                </div>
             </div>
             
             <div class="address-box">
@@ -124,18 +329,133 @@
                 <p><strong>الموقع:</strong> GGDB7677، 2618، حي المطار، جازان 82722</p>
                 <p><strong>المدينة:</strong> جازان، المملكة العربية السعودية</p>
                 <p><strong>الهاتف:</strong> <a href="tel:+966552425251" style="color: #3498db; text-decoration: none;">+966 55 242 5251</a></p>
+                <p><strong>ساعات العمل:</strong> الأحد - الخميس: ٨ صباحاً - ٥ مساءً</p>
             </div>
         </div>
     </section>
 
     <!-- الفوتر -->
     <footer class="footer">
-        <p>© <span id="current-year">2025</span> شركة كفاءات العالم للأستقدام. جميع الحقوق محفوظة.</p>
+        <p>© <span id="current-year">2024</span> شركة كفاءات العالم للأستقدام. جميع الحقوق محفوظة.</p>
     </footer>
 
     <script>
-        // تحديث السنة الحالية تلقائياً
+        let map;
+        let marker;
+        let officeLocation = { lat: 16.8891341, lng: 42.5767392 }; // إحداثيات مكتب جازان
+
+        // تحديث السنة الحالية
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // تهيئة الخريطة
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('customMap'), {
+                center: officeLocation,
+                zoom: 16,
+                mapTypeControl: true,
+                streetViewControl: true,
+                fullscreenControl: true,
+                zoomControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles: [
+                    {
+                        featureType: "poi.business",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
+            });
+
+            // إنشاء دبوس مخصص
+            marker = new google.maps.Marker({
+                position: officeLocation,
+                map: map,
+                title: 'شركة كفاءات العالم للأستقدام',
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: "#3498db",
+                    fillOpacity: 1,
+                    strokeColor: "#ffffff",
+                    strokeWeight: 2
+                },
+                animation: google.maps.Animation.DROP
+            });
+
+            // نافذة معلومات عند النقر على الدبوس
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="padding: 10px; font-family: 'Tajawal', sans-serif; text-align: right;">
+                        <h3 style="color: #3498db; margin: 0 0 10px 0;">شركة كفاءات العالم للأستقدام</h3>
+                        <p style="margin: 5px 0;"><strong>📍 العنوان:</strong> GGDB7677، 2618، حي المطار، جازان</p>
+                        <p style="margin: 5px 0;"><strong>📞 الهاتف:</strong> <a href="tel:+966552425251" style="color: #3498db;">+966 55 242 5251</a></p>
+                        <p style="margin: 5px 0;"><strong>🕒 ساعات العمل:</strong> ٨ ص - ٥ م</p>
+                        <button onclick="getDirections()" style="background: #25d366; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-top: 10px; cursor: pointer;">
+                            <i class="fas fa-directions"></i> الحصول على اتجاهات
+                        </button>
+                    </div>
+                `
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.open(map, marker);
+            });
+
+            // إظهار نافذة المعلومات تلقائياً
+            setTimeout(() => {
+                infoWindow.open(map, marker);
+            }, 1500);
+        }
+
+        // وظائف التحكم في الخريطة
+        function zoomIn() {
+            map.setZoom(map.getZoom() + 1);
+        }
+
+        function zoomOut() {
+            map.setZoom(map.getZoom() - 1);
+        }
+
+        function resetMap() {
+            map.setCenter(officeLocation);
+            map.setZoom(16);
+        }
+
+        function getDirections() {
+            const destination = encodeURIComponent("GGDB7677، 2618، حي المطار، جازان 82722، السعودية");
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`, '_blank');
+        }
+
+        // دالة للانتقال إلى قسم الخريطة
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.getAttribute('href') === '#map') {
+                    e.preventDefault();
+                    setTimeout(() => {
+                        document.querySelector('#map').scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }, 100);
+                }
+            });
+        });
+    </script>
+
+    <!-- إذا لم تكن لديك مفتاح API، يمكنك استخدام هذا الرابط كبديل -->
+    <script>
+        // إذا لم يكن لديك مفتاح API، يمكنك استخدام هذا البديل البسيط
+        if(typeof google === 'undefined') {
+            document.getElementById('customMap').innerHTML = `
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.759634755655!2d42.57454537505811!3d16.88913408055591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15653d3d0f2d11f5%3A0x7e30c1b4d5c8d2c2!2sGGDB7677%2C%202618%2C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1%2C%20%D8%AC%D8%A7%D8%B2%D8%A7%D9%86%2082722%2C%20%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9!5e0!3m2!1sen!2sus!4v1648159472347!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            `;
+        }
     </script>
 
 </body>
