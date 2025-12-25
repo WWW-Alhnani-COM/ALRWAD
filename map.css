@@ -1,0 +1,314 @@
+/* قسم الخريطة */
+.map-section {
+    padding: 80px 8%;
+    background: white;
+    text-align: center;
+}
+
+.map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-family: 'Changa', sans-serif;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to left, #3498db, #25d366);
+    border-radius: 2px;
+}
+
+.map-description {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 40px;
+    font-family: 'Amiri', serif;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+    line-height: 1.8;
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin: 30px 0;
+    border: 1px solid #eaeaea;
+}
+
+#customMap {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: relative;
+}
+
+.address-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 30px;
+    text-align: center;
+    border-right: 5px solid #3498db;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.address-box h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.8rem;
+}
+
+.address-box p {
+    color: #555;
+    font-size: 1.2rem;
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.address-box i {
+    color: #3498db;
+    margin-left: 10px;
+}
+
+.address-box a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.address-box a:hover {
+    color: #25d366;
+    text-decoration: underline;
+}
+
+/* عناصر التحكم في الخريطة */
+.map-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.map-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.map-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
+}
+
+.map-btn i {
+    font-size: 18px;
+}
+
+.map-btn.get-directions {
+    background: #25d366;
+}
+
+.map-btn.get-directions:hover {
+    background: #1da851;
+}
+
+/* دبوس مخصص */
+.custom-marker {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 100;
+    animation: bounce 2s infinite;
+    pointer-events: none;
+}
+
+.marker-pin {
+    width: 35px;
+    height: 35px;
+    border-radius: 50% 50% 50% 0;
+    background: #3498db;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 0;
+    margin-left: -17.5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.marker-pin::after {
+    content: '';
+    width: 27px;
+    height: 27px;
+    margin: 4px;
+    background: white;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.marker-content {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: bold;
+    border: 2px solid #3498db;
+    min-width: 180px;
+    text-align: center;
+}
+
+.marker-content::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #3498db;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translate(-50%, -100%); }
+    50% { transform: translate(-50%, -105%); }
+}
+
+/* نافذة المعلومات */
+.info-window-content {
+    font-family: 'Tajawal', sans-serif;
+    text-align: right;
+    padding: 10px;
+    max-width: 250px;
+}
+
+.info-window-content h4 {
+    color: #3498db;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.info-window-content p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.info-btn {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.info-btn:hover {
+    background: #1da851;
+}
+
+/* تحسينات للجوال لقسم الخريطة */
+@media (max-width: 1024px) {
+    .section-title {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .map-wrapper {
+        height: 400px;
+    }
+    
+    .map-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .map-btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+    
+    .address-box {
+        padding: 20px 15px;
+    }
+    
+    .address-box h3 {
+        font-size: 1.5rem;
+    }
+    
+    .address-box p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .map-wrapper {
+        height: 350px;
+    }
+    
+    .marker-content {
+        min-width: 150px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+.map-section {
+    animation: fadeIn 1s ease-out;
+}
