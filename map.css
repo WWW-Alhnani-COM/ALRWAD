@@ -327,132 +327,7 @@
     50% { transform: translateX(-50%) translateY(-10px); }
 }
 
-/* أقسام إضافية */
-.directions-section {
-    padding: 60px 8%;
-    background: #f9f9f9;
-}
-
-.directions-section h2 {
-    text-align: center;
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 40px;
-    font-family: 'Changa', sans-serif;
-}
-
-.directions-section h2 i {
-    color: #764ba2;
-    margin-left: 15px;
-}
-
-.directions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.direction-item {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-    border-top: 4px solid #3498db;
-}
-
-.direction-item:hover {
-    transform: translateY(-10px);
-}
-
-.direction-item h3 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.direction-item h3 i {
-    color: #3498db;
-    font-size: 1.8rem;
-}
-
-.direction-item p {
-    color: #666;
-    line-height: 1.7;
-    font-family: 'Tajawal', sans-serif;
-}
-
-.working-hours-section {
-    padding: 60px 8%;
-    background: white;
-}
-
-.working-hours-section h2 {
-    text-align: center;
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 40px;
-    font-family: 'Changa', sans-serif;
-}
-
-.working-hours-section h2 i {
-    color: #764ba2;
-    margin-left: 15px;
-}
-
-.hours-table {
-    max-width: 500px;
-    margin: 0 auto;
-    background: #f8f9fa;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-.day-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 30px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.day-row:last-child {
-    border-bottom: none;
-}
-
-.day {
-    font-weight: bold;
-    color: #2c3e50;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.2rem;
-}
-
-.time {
-    color: #3498db;
-    font-weight: bold;
-    font-family: 'Tajawal', sans-serif;
-}
-
-.note {
-    text-align: center;
-    color: #666;
-    margin-top: 20px;
-    font-style: italic;
-}
-
-/* تخصيصات الفوتر لصفحة الخريطة */
-.map-page .footer {
-    background: #2c3e50;
-    color: white;
-    padding: 40px 8% 20px;
-}
-
+/* زر العودة للرئيسية */
 .back-home {
     display: inline-flex;
     align-items: center;
@@ -547,20 +422,6 @@
         justify-content: center;
     }
     
-    .directions-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .directions-section,
-    .working-hours-section {
-        padding: 40px 5%;
-    }
-    
-    .directions-section h2,
-    .working-hours-section h2 {
-        font-size: 1.8rem;
-    }
-    
     .marker-content {
         min-width: 150px;
         font-size: 13px;
@@ -579,11 +440,5 @@
     
     .map-description {
         font-size: 1rem;
-    }
-    
-    .day-row {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
     }
 }
