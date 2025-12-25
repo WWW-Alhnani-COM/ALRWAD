@@ -1,83 +1,108 @@
-// map.js - ملف جافاسكريبت للخريطة
+// map.js - جافاسكريبت خاص بصفحة الخريطة
 
 document.addEventListener('DOMContentLoaded', function() {
-    // تهيئة وظائف الخريطة
-    initMapFunctions();
+    console.log('صفحة الخريطة جاهزة للعمل');
     
-    // إعداد مراقبة ظهور قسم الخريطة
-    setupMapObserver();
+    // تهيئة وظائف الخريطة
+    initMapPage();
     
     // ربط أحداث أزرار التحكم
-    bindMapControlEvents();
+    bindMapControls();
+    
+    // إعداد النسخ الذكي
+    setupCopyFunctionality();
+    
+    // تحسين تجربة المستخدم
+    enhanceUserExperience();
 });
 
-// تهيئة وظائف الخريطة
-function initMapFunctions() {
-    console.log('تهيئة وظائف الخريطة...');
+// تهيئة صفحة الخريطة
+function initMapPage() {
+    // تحديث السنة الحالية
+    updateCurrentYear();
     
     // تعيين إحداثيات المكتب
     window.officeLocation = {
         lat: 16.8891341,
         lng: 42.5767392,
-        address: "GGDB7677، 2618، حي المطار، جازان 82722، السعودية"
+        address: "GGDB7677، 2618، حي المطار، جازان 82722، السعودية",
+        phone: "+966552425251",
+        email: "info@alkfaih.com"
     };
-    
-    // تعيين مستوى التكبير الافتراضي
-    window.currentZoom = 16;
-}
-
-// إعداد مراقبة ظهور قسم الخريطة
-function setupMapObserver() {
-    const mapSection = document.querySelector('.map-section');
-    
-    if (mapSection) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // إضافة تأثير للدبوس عند ظهور الخريطة
-                    activateMarkerAnimation();
-                    console.log('قسم الخريطة مرئي الآن');
-                }
-            });
-        }, { 
-            threshold: 0.3 // 30% من العنصر مرئي
-        });
-        
-        observer.observe(mapSection);
-    }
 }
 
 // ربط أحداث أزرار التحكم
-function bindMapControlEvents() {
+function bindMapControls() {
     // زر التكبير
     const zoomInBtn = document.querySelector('.zoom-in');
     if (zoomInBtn) {
-        zoomInBtn.addEventListener('click', zoomMapIn);
+        zoomInBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            zoomMapIn();
+        });
     }
     
     // زر التصغير
     const zoomOutBtn = document.querySelector('.zoom-out');
     if (zoomOutBtn) {
-        zoomOutBtn.addEventListener('click', zoomMapOut);
+        zoomOutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            zoomMapOut();
+        });
     }
     
     // زر إعادة التعيين
     const resetBtn = document.querySelector('.reset-map');
     if (resetBtn) {
-        resetBtn.addEventListener('click', resetMapView);
+        resetBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetMapView();
+        });
     }
     
     // زر الحصول على اتجاهات
     const directionsBtn = document.querySelector('.get-directions');
     if (directionsBtn) {
-        directionsBtn.addEventListener('click', getDirectionsToOffice);
+        directionsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            getDirectionsToOffice();
+        });
+    }
+}
+
+// إعداد وظيفة النسخ
+function setupCopyFunctionality() {
+    const copyBtn = document.querySelector('.copy-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copyAddress);
+    }
+}
+
+// تحسين تجربة المستخدم
+function enhanceUserExperience() {
+    // إضافة تأثيرات للدبوس
+    const marker = document.querySelector('.custom-marker');
+    if (marker) {
+        // تفعيل الحركة عند تحميل الصفحة
+        setTimeout(() => {
+            marker.style.animation = 'bounce 2s infinite';
+        }, 1000);
+        
+        // تأثير عند التمرير فوق الدبوس
+        marker.addEventListener('mouseenter', function() {
+            this.style.transform = 'translate(-50%, -100%) scale(1.2)';
+        });
+        
+        marker.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(-50%, -100%) scale(1)';
+        });
     }
     
-    // تأثيرات تمرير الماوس على أزرار التحكم
+    // إضافة تأثيرات لأزرار التحكم
     const mapButtons = document.querySelectorAll('.map-btn');
     mapButtons.forEach(button => {
         button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px)';
+            this.style.transform = 'translateY(-5px)';
         });
         
         button.addEventListener('mouseleave', function() {
@@ -86,18 +111,27 @@ function bindMapControlEvents() {
     });
 }
 
-// وظائف التحكم في الخريطة
-
 // تكبير الخريطة
 function zoomMapIn() {
     const iframe = document.querySelector('#customMap iframe');
     if (!iframe) return;
     
-    window.currentZoom = Math.min(window.currentZoom + 1, 20); // الحد الأقصى للتكبير
-    updateMapZoom(iframe);
+    // الحصول على مستوى التكبير الحالي
+    const currentSrc = iframe.src;
+    const zoomMatch = currentSrc.match(/zoom=(\d+)/);
+    let currentZoom = zoomMatch ? parseInt(zoomMatch[1]) : 16;
     
-    // تأثير مرئي للتغذية الراجعة
-    provideVisualFeedback('.zoom-in', 'تم التكبير');
+    // زيادة مستوى التكبير (بحد أقصى 20)
+    const newZoom = Math.min(currentZoom + 1, 20);
+    
+    // تحديث رابط الخريطة بمستوى التكبير الجديد
+    const newSrc = currentSrc.replace(/zoom=\d+/, `zoom=${newZoom}`);
+    
+    // تطبيق التغيير
+    iframe.src = newSrc;
+    
+    // عرض رسالة تأكيد
+    showToast('تم تكبير الخريطة', 'success');
 }
 
 // تصغير الخريطة
@@ -105,23 +139,22 @@ function zoomMapOut() {
     const iframe = document.querySelector('#customMap iframe');
     if (!iframe) return;
     
-    window.currentZoom = Math.max(window.currentZoom - 1, 10); // الحد الأدنى للتكبير
-    updateMapZoom(iframe);
-    
-    // تأثير مرئي للتغذية الراجعة
-    provideVisualFeedback('.zoom-out', 'تم التصغير');
-}
-
-// تحديث مستوى التكبير في الخريطة
-function updateMapZoom(iframe) {
+    // الحصول على مستوى التكبير الحالي
     const currentSrc = iframe.src;
-    const newSrc = currentSrc.replace(/zoom=\d+/, `zoom=${window.currentZoom}`);
+    const zoomMatch = currentSrc.match(/zoom=(\d+)/);
+    let currentZoom = zoomMatch ? parseInt(zoomMatch[1]) : 16;
     
-    // استخدام requestAnimationFrame لتجنب وميض الصفحة
-    requestAnimationFrame(() => {
-        iframe.src = newSrc;
-        console.log(`تم تحديث مستوى التكبير إلى: ${window.currentZoom}`);
-    });
+    // تقليل مستوى التكبير (بحد أدنى 10)
+    const newZoom = Math.max(currentZoom - 1, 10);
+    
+    // تحديث رابط الخريطة بمستوى التكبير الجديد
+    const newSrc = currentSrc.replace(/zoom=\d+/, `zoom=${newZoom}`);
+    
+    // تطبيق التغيير
+    iframe.src = newSrc;
+    
+    // عرض رسالة تأكيد
+    showToast('تم تصغير الخريطة', 'success');
 }
 
 // إعادة تعيين عرض الخريطة
@@ -129,133 +162,165 @@ function resetMapView() {
     const iframe = document.querySelector('#customMap iframe');
     if (!iframe) return;
     
-    window.currentZoom = 16;
+    // الرابط الأصلي للخريطة
     const baseUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.759634755655!2d42.57454537505811!3d16.88913408055591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15653d3d0f2d11f5%3A0x7e30c1b4d5c8d2c2!2sGGDB7677%2C%202618%2C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1%2C%20%D8%AC%D8%A7%D8%B2%D8%A7%D9%86%2082722%2C%20%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9!5e0!3m2!1sen!2sus!4v1648159472347!5m2!1sen!2sus";
     
+    // تطبيق التغيير
     iframe.src = baseUrl;
     
-    // تأثير مرئي للتغذية الراجعة
-    provideVisualFeedback('.reset-map', 'تم إعادة تعيين الخريطة');
-    console.log('تم إعادة تعيين الخريطة إلى الوضع الافتراضي');
+    // عرض رسالة تأكيد
+    showToast('تم إعادة تعيين الخريطة', 'success');
 }
 
 // الحصول على اتجاهات إلى المكتب
 function getDirectionsToOffice() {
-    if (!window.officeLocation || !window.officeLocation.address) return;
+    if (!window.officeLocation || !window.officeLocation.address) {
+        showToast('عذراً، لا يمكن الحصول على الاتجاهات حالياً', 'error');
+        return;
+    }
     
     const destination = encodeURIComponent(window.officeLocation.address);
     const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
     
     // فتح الاتجاهات في نافذة جديدة
-    window.open(directionsUrl, '_blank', 'noopener,noreferrer');
+    const newWindow = window.open(directionsUrl, '_blank', 'noopener,noreferrer');
     
-    // تتبع الحدث
-    console.log('تم طلب الاتجاهات إلى المكتب');
-    
-    // تأثير مرئي للتغذية الراجعة
-    provideVisualFeedback('.get-directions', 'جارٍ فتح الاتجاهات...');
-}
-
-// تفعيل حركة الدبوس
-function activateMarkerAnimation() {
-    const marker = document.querySelector('.custom-marker');
-    if (marker) {
-        marker.style.animation = 'bounce 2s infinite';
-        
-        // إضافة تأثير اهتزاز لمرة واحدة
-        setTimeout(() => {
-            marker.style.transform = 'translate(-50%, -100%) scale(1.1)';
-            setTimeout(() => {
-                marker.style.transform = 'translate(-50%, -100%) scale(1)';
-            }, 300);
-        }, 500);
+    if (newWindow) {
+        showToast('جارٍ فتح خرائط جوجل للاتجاهات...', 'info');
+    } else {
+        showToast('عذراً، يرجى السماح بالنوافذ المنبثقة', 'warning');
     }
 }
 
-// توفير تغذية راجعة مرئية
-function provideVisualFeedback(selector, message) {
-    const button = document.querySelector(selector);
-    if (!button) return;
+// نسخ العنوان إلى الحافظة
+function copyAddress() {
+    const addressText = "GGDB7677، 2618، حي المطار، جازان 82722، السعودية";
     
-    const originalText = button.innerHTML;
-    
-    // تغيير مؤقت للنص
-    button.innerHTML = `<i class="fas fa-check"></i> ${message}`;
-    button.style.backgroundColor = '#2ecc71';
-    
-    // العودة إلى النص الأصلي بعد 1.5 ثانية
-    setTimeout(() => {
-        button.innerHTML = originalText;
-        button.style.backgroundColor = '';
-        
-        if (selector.includes('directions')) {
-            button.style.backgroundColor = '#25d366';
-        }
-    }, 1500);
-    
-    // تأثير اهتزاز
-    button.style.animation = 'none';
-    setTimeout(() => {
-        button.style.animation = '';
-    }, 10);
+    // استخدام Clipboard API الحديث
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(addressText)
+            .then(() => {
+                showToast('تم نسخ العنوان إلى الحافظة', 'success');
+            })
+            .catch(err => {
+                console.error('فشل النسخ:', err);
+                copyFallback(addressText);
+            });
+    } else {
+        // طريقة احتياطية للمتصفحات القديمة
+        copyFallback(addressText);
+    }
 }
 
-// الحصول على إحداثيات الموقع الحالي للمستخدم (يتطلب HTTPS)
-function getUserLocation() {
-    if (!navigator.geolocation) {
-        console.log('المتصفح لا يدعم تحديد الموقع');
-        return null;
+// طريقة احتياطية للنسخ
+function copyFallback(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showToast('تم نسخ العنوان إلى الحافظة', 'success');
+    } catch (err) {
+        console.error('فشل النسخ:', err);
+        showToast('فشل نسخ العنوان، يرجى نسخه يدوياً', 'error');
     }
     
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                resolve({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                });
-            },
-            (error) => {
-                console.error('خطأ في الحصول على الموقع:', error.message);
-                reject(error);
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            }
-        );
+    document.body.removeChild(textArea);
+}
+
+// تحديث السنة الحالية
+function updateCurrentYear() {
+    const yearElements = document.querySelectorAll('#current-year');
+    yearElements.forEach(element => {
+        element.textContent = new Date().getFullYear();
     });
 }
 
-// حساب المسافة بين موقعين (صيغة هافرساين)
-function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // نصف قطر الأرض بالكيلومترات
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+// عرض رسائل تأكيد
+function showToast(message, type = 'info') {
+    // إزالة أي رسالة سابقة
+    const existingToast = document.querySelector('.toast-message');
+    if (existingToast) {
+        existingToast.remove();
+    }
     
-    const a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2);
+    // إنشاء عنصر الرسالة
+    const toast = document.createElement('div');
+    toast.className = `toast-message toast-${type}`;
+    toast.innerHTML = `
+        <span>${message}</span>
+        <button class="toast-close" aria-label="إغلاق">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
     
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    const distance = R * c;
+    // إضافة الأنماط
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'success' ? '#2ecc71' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
+        color: white;
+        padding: 15px 25px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        z-index: 10000;
+        font-family: 'Tajawal', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        animation: slideIn 0.3s ease-out;
+    `;
     
-    return distance.toFixed(1); // كيلومترات بمعدل منزلة عشرية واحدة
-}
-
-// تصدير الوظائف للاستخدام في ملفات أخرى
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initMapFunctions,
-        setupMapObserver,
-        bindMapControlEvents,
-        zoomMapIn,
-        zoomMapOut,
-        resetMapView,
-        getDirectionsToOffice,
-        getUserLocation,
-        calculateDistance
-    };
+    // زر الإغلاق
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.style.cssText = `
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    `;
+    
+    closeBtn.addEventListener('click', () => {
+        toast.remove();
+    });
+    
+    // إضافة الرسالة إلى الصفحة
+    document.body.appendChild(toast);
+    
+    // إضافة أنيميشن
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(-50%) translateY(0); opacity: 1; }
+            to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // إزالة الرسالة تلقائياً بعد 5 ثواني
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out forwards';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 300);
+    }, 5000);
 }
