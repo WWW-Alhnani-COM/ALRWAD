@@ -59,7 +59,6 @@
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="map.css">
     
 </head>
 <body>
@@ -67,14 +66,14 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
-            <a href="#home" style="color: inherit; text-decoration: none;">
+            <a href="index.html" style="color: inherit; text-decoration: none;">
                 كفاءات العالم <span>للاستقدام</span>
             </a>
         </div>
         <ul class="nav-links">
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#map">خريطة الموقع</a></li>
-            <li><a href="" target="_blank">تواصل معنا</a></li>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="map.html">خريطة الموقع</a></li>
+            <li><a href="https://wa.me/" target="_blank">تواصل معنا</a></li>
         </ul>
     </nav>
 
@@ -87,8 +86,11 @@
             <p>نوفر لكم أفضل الكوادر المنزلية المختارة بعناية لتلبية احتياجات الأسرة السعودية، بجودة وموثوقية عالية.</p>
             
             <div class="cta-buttons">
-                <a href="" class="btn-whatsapp" target="_blank" aria-label="تواصل معنا على واتساب">
+                <a href="https://wa.me/" class="btn-whatsapp" target="_blank" aria-label="تواصل معنا على واتساب">
                     <i class="fab fa-whatsapp"></i> تواصل معنا الآن
+                </a>
+                <a href="map.html" class="btn-outline" aria-label="عرض خريطة الموقع">
+                    <i class="fas fa-map-marker-alt"></i> موقع المكتب
                 </a>
             </div>
         </main>
@@ -109,73 +111,80 @@
         </section>
     </div>
 
-    <!-- Map Section -->
-    <section class="map-section" id="map" aria-label="خريطة موقع الشركة">
-        <div class="map-container">
-            <h2 class="section-title">موقعنا على الخريطة</h2>
-            <p class="map-description">يمكنكم زيارة مكتبنا في جازان للتعرف على خدماتنا مباشرةً. نحن هنا لخدمتكم على مدار الأسبوع.</p>
-            
-            <div class="map-wrapper">
-                <!-- خريطة جوجل ماب المضمنة -->
-                <div id="customMap">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.759634755655!2d42.57454537505811!3d16.88913408055591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15653d3d0f2d11f5%3A0x7e30c1b4d5c8d2c2!2sGGDB7677%2C%202618%2C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1%2C%20%D8%AC%D8%A7%D8%B2%D8%A7%D9%86%2082722%2C%20%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9!5e0!3m2!1sen!2sus!4v1648159472347!5m2!1sen!2sus" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="خريطة موقع شركة كفاءات العالم للاستقدام في جازان"
-                        aria-label="خريطة تفاعلية لموقع شركة كفاءات العالم للاستقدام">
-                    </iframe>
-                    
-                    <!-- دبوس مخصص يظهر فوق الخريطة -->
-                    <div class="custom-marker">
-                        <div class="marker-pin"></div>
-                        <div class="marker-content">شركة كفاءات العالم</div>
-                    </div>
+    <!-- Additional Content Sections -->
+    <section class="content-section" id="services">
+        <div class="container">
+            <h2>خدماتنا</h2>
+            <p>نقدم في شركة كفاءات العالم للأستقدام مجموعة متكاملة من خدمات الاستقدام التي تلبي جميع احتياجات الأسرة السعودية:</p>
+            <ul>
+                <li>استقدام العاملات المنزلية المدربات</li>
+                <li>استقدام الممرضات المؤهلات</li>
+                <li>استقدام السائقين المحترفين</li>
+                <li>خدمات التوظيف المنزلي الشامل</li>
+                <li>تدريب العاملات على المهارات المنزلية</li>
+                <li>خدمات ما بعد الاستقدام والمتابعة</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section" id="why-us">
+        <div class="container">
+            <h2>لماذا تختار كفاءات العالم؟</h2>
+            <p>نتميز بخبرة طويلة في مجال الاستقدام وثقة آلاف العملاء الذين اختارونا:</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>ضمان الجودة</h3>
+                    <p>جميع العاملات لدينا مدربات ومؤهلات</p>
                 </div>
-                
-                <!-- عناصر التحكم في الخريطة -->
-                <div class="map-controls">
-                    <button class="map-btn zoom-in" aria-label="تكبير الخريطة">
-                        <i class="fas fa-search-plus"></i> تكبير
-                    </button>
-                    <button class="map-btn zoom-out" aria-label="تصغير الخريطة">
-                        <i class="fas fa-search-minus"></i> تصغير
-                    </button>
-                    <button class="map-btn reset-map" aria-label="إعادة تعيين الخريطة">
-                        <i class="fas fa-sync-alt"></i> إعادة تعيين
-                    </button>
-                    <button class="map-btn get-directions" aria-label="الحصول على اتجاهات للوصول إلى المكتب">
-                        <i class="fas fa-directions"></i> الحصول على اتجاهات
-                    </button>
+                <div class="feature-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>سرعة الإنجاز</h3>
+                    <p>إجراءات استقدام سريعة ومضمونة</p>
                 </div>
-            </div>
-            
-            <div class="address-box">
-                <h3><i class="fas fa-map-marker-alt" aria-hidden="true"></i> عنوان المكتب</h3>
-                <p><strong>الموقع:</strong> GGDB7677، 2618، حي المطار، جازان 82722</p>
-                <p><strong>المدينة:</strong> جازان، المملكة العربية السعودية</p>
-                <p><strong>الهاتف:</strong> <a href="tel:">+966 0000000000</a></p>
-                <p><strong>ساعات العمل:</strong> الأحد - الخميس: ٨ صباحاً - ٥ مساءً</p>
-                <p><strong>البريد الإلكتروني:</strong> <a href="mailto:info@alkfaih.com">info@alkfaih.com</a></p>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <h3>دعم مستمر</h3>
+                    <p>دعم فني ومتابعة بعد الاستقدام</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-certificate"></i>
+                    <h3>تراخيص رسمية</h3>
+                    <p>شركة مرخصة ومعتمدة رسمياً</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
-        <p>© <span id="current-year">2025</span> شركة كفاءات العالم للأستقدام. جميع الحقوق محفوظة.</p>
-        <p class="back-to-top">
-            <a href="#home" style="color: #3498db; text-decoration: none;">العودة للأعلى ↑</a>
-        </p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>كفاءات العالم للاستقدام</h3>
+                <p>شركة رائدة في مجال استقدام العمالة المنزلية المدربة في المملكة العربية السعودية.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="map.html">خريطة الموقع</a></li>
+                    <li><a href="tel:">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>معلومات الاتصال</h3>
+                <p><i class="fas fa-phone"></i> +966</p>
+                <p><i class="fas fa-envelope"></i> info@alkfaih.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> جازان، حي المطار</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="current-year">2025</span> شركة كفاءات العالم للأستقدام. جميع الحقوق محفوظة.</p>
+        </div>
     </footer>
 
     <!-- JavaScript Files -->
     <script src="main.js"></script>
-    <script src="map.js"></script>
     
 </body>
 </html>
