@@ -1,6 +1,12 @@
 // main.js - الملف الرئيسي لجافاسكريبت
 
 document.addEventListener('DOMContentLoaded', function() {
+    // رسالة ترحيب في console
+    console.log('%c🚀 مرحباً بك في موقع كفاءات العالم للاستقدام! %c\nتم التطوير بعناية لتجربة مستخدم متميزة.', 
+        'color: #25d366; font-size: 16px; font-weight: bold;',
+        'color: #3498db; font-size: 12px;'
+    );
+    
     // تحديث السنة الحالية في الفوتر
     updateCurrentYear();
     
@@ -18,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // إعداد تحميل الصور الكسول
     setupLazyLoading();
+    
+    // إضافة زر التمرير لأعلى
+    addScrollTopButton();
+    
+    // إعداد تأثيرات الظهور عند التمرير
+    setupScrollAnimations();
+    
+    // تحسين تجربة اللمس
+    setupTouchOptimization();
 });
 
 // تحديث السنة الحالية
@@ -56,6 +71,7 @@ function setupHamburgerMenu() {
         menuToggle.classList.add('active');
         document.body.classList.add('menu-open');
         
+        // تغيير الأيقونة
         if (menuIcon) {
             menuIcon.classList.remove('fa-bars');
             menuIcon.classList.add('fa-times');
@@ -65,7 +81,11 @@ function setupHamburgerMenu() {
         menuToggle.setAttribute('aria-label', 'إغلاق القائمة');
         menuToggle.setAttribute('aria-expanded', 'true');
         
-        // تسجيل الحدث (لأغراض التحليل)
+        // إخفاء شريط التمرير
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        
+        // تسجيل الحدث
         logEvent('menu_open', 'navigation');
     }
     
@@ -76,6 +96,7 @@ function setupHamburgerMenu() {
         menuToggle.classList.remove('active');
         document.body.classList.remove('menu-open');
         
+        // إرجاع الأيقونة
         if (menuIcon) {
             menuIcon.classList.remove('fa-times');
             menuIcon.classList.add('fa-bars');
@@ -84,6 +105,10 @@ function setupHamburgerMenu() {
         // تحديث وصف زر الهامبرجر
         menuToggle.setAttribute('aria-label', 'فتح القائمة');
         menuToggle.setAttribute('aria-expanded', 'false');
+        
+        // إعادة شريط التمرير
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     }
     
     // إضافة event listeners
@@ -151,6 +176,9 @@ function setupSmoothScrolling() {
                     
                     // تحديث URL بدون إعادة تحميل الصفحة
                     history.pushState(null, null, href);
+                    
+                    // تسجيل الحدث
+                    logEvent('smooth_scroll', 'navigation', href);
                 }
             }
         });
@@ -225,7 +253,9 @@ function setupLoadingEffects() {
     
     // تأثيرات لعناصر الميزات
     const features = document.querySelectorAll('.feature-item');
-    features.forEach(feature => {
+    features.forEach((feature, index) => {
+        feature.style.setProperty('--item-index', index);
+        
         feature.addEventListener('mouseenter', function() {
             this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
         });
@@ -257,7 +287,7 @@ function setupScrollEffects() {
             navbar.style.padding = '20px 5%';
         }
         
-        // تأثير إظهار/إخفاء الهيدر عند التمرير
+        // تأثير إظهار/إخفاء الهيدر عند التمرير (لشاشات الكبيرة فقط)
         if (window.innerWidth > 768) {
             if (scrollTop > lastScrollTop && scrollTop > 100) {
                 // التمرير لأسفل
@@ -270,35 +300,7 @@ function setupScrollEffects() {
         
         navbar.style.transition = 'all 0.3s ease';
         lastScrollTop = scrollTop;
-        
-        // إضافة تأثير للعناصر عند التمرير
-        animateOnScroll();
     });
-    
-    // إضافة تأثير ظهور العناصر عند التمرير
-    function animateOnScroll() {
-        const elements = document.querySelectorAll('.content-section, .feature-item, .stat-item');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    }
-    
-    // إعداد القيم الأولية للعناصر المتحركة
-    document.querySelectorAll('.content-section, .feature-item').forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    
-    // تفعيل مرة أولى
-    setTimeout(animateOnScroll, 100);
 }
 
 // إعداد تحميل الصور الكسول
@@ -340,6 +342,129 @@ function setupLazyLoading() {
     images.forEach(img => imageObserver.observe(img));
 }
 
+// إضافة زر التمرير لأعلى
+function addScrollTopButton() {
+    if (document.getElementById('scrollTopBtn')) return;
+    
+    const scrollTopBtn = document.createElement('button');
+    scrollTopBtn.id = 'scrollTopBtn';
+    scrollTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    scrollTopBtn.setAttribute('aria-label', 'التمرير إلى الأعلى');
+    scrollTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        background: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        transition: all 0.3s ease;
+        z-index: 999;
+        opacity: 0;
+    `;
+    
+    scrollTopBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.boxShadow = '0 6px 20px rgba(52, 152, 219, 0.4)';
+    });
+    
+    scrollTopBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 4px 15px rgba(52, 152, 219, 0.3)';
+    });
+    
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        logEvent('scroll_to_top', 'navigation');
+    });
+    
+    // التحكم في ظهور الزر عند التمرير
+    window.addEventListener('scroll', function() {
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        if (!scrollTopBtn) return;
+        
+        if (window.pageYOffset > 300) {
+            scrollTopBtn.style.display = 'flex';
+            setTimeout(() => {
+                scrollTopBtn.style.opacity = '1';
+            }, 10);
+        } else {
+            scrollTopBtn.style.opacity = '0';
+            setTimeout(() => {
+                if (scrollTopBtn.style.opacity === '0') {
+                    scrollTopBtn.style.display = 'none';
+                }
+            }, 300);
+        }
+    });
+    
+    document.body.appendChild(scrollTopBtn);
+}
+
+// إعداد تأثيرات الظهور عند التمرير
+function setupScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.content-section, .feature-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// تحسين تجربة اللمس
+function setupTouchOptimization() {
+    // منع السلوك الافتراضي لبعض الأحداث
+    document.addEventListener('touchstart', function(e) {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+            e.target.classList.add('active');
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+            e.target.classList.remove('active');
+        }
+    }, { passive: true });
+    
+    // منع تكبير النص عند النقر المزدوج على الجوال
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+}
+
 // وظائف عامة
 function scrollToTop() {
     window.scrollTo({
@@ -376,24 +501,6 @@ function logEvent(eventName, eventCategory, eventLabel = null) {
     console.log(`Event: ${eventName}, Category: ${eventCategory}, Label: ${eventLabel || 'N/A'}`);
 }
 
-// دالة لإضافة رسالة ترحيب في console
-console.log('%c🚀 مرحباً بك في موقع كفاءات العالم للاستقدام! %c\nتم التطوير بعناية لتجربة مستخدم متميزة.', 
-    'color: #25d366; font-size: 16px; font-weight: bold;',
-    'color: #3498db; font-size: 12px;'
-);
-
-// تحسين تجربة اللمس على الأجهزة المحمولة
-document.addEventListener('touchstart', function() {}, { 
-    passive: true 
-});
-
-// منع السلوك الافتراضي لبعض الأحداث
-document.addEventListener('contextmenu', function(e) {
-    if (e.target.nodeName === 'IMG') {
-        e.preventDefault();
-    }
-});
-
 // دالة مساعدة لإضافة تأثير النقر
 function addClickEffect(element) {
     element.addEventListener('mousedown', function() {
@@ -428,68 +535,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 });
 
-// دالة لإظهار/إخفاء زر التمرير لأعلى
-window.addEventListener('scroll', function() {
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    if (!scrollTopBtn) return;
-    
-    if (window.pageYOffset > 300) {
-        scrollTopBtn.style.display = 'block';
-        scrollTopBtn.style.opacity = '1';
-    } else {
-        scrollTopBtn.style.opacity = '0';
-        setTimeout(() => {
-            if (scrollTopBtn.style.opacity === '0') {
-                scrollTopBtn.style.display = 'none';
-            }
-        }, 300);
+// منع حفظ الصور
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.nodeName === 'IMG') {
+        e.preventDefault();
     }
 });
 
-// إضافة زر التمرير لأعلى إذا لم يكن موجوداً
-function addScrollTopButton() {
-    if (document.getElementById('scrollTopBtn')) return;
-    
-    const scrollTopBtn = document.createElement('button');
-    scrollTopBtn.id = 'scrollTopBtn';
-    scrollTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-    scrollTopBtn.setAttribute('aria-label', 'التمرير إلى الأعلى');
-    scrollTopBtn.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        left: 30px;
-        background: var(--primary-color);
-        color: white;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        transition: all 0.3s ease;
-        z-index: 1000;
-    `;
-    
-    scrollTopBtn.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-        this.style.boxShadow = '0 6px 20px rgba(52, 152, 219, 0.4)';
-    });
-    
-    scrollTopBtn.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = '0 4px 15px rgba(52, 152, 219, 0.3)';
-    });
-    
-    scrollTopBtn.addEventListener('click', scrollToTop);
-    
-    document.body.appendChild(scrollTopBtn);
-}
-
-// إضافة زر التمرير لأعلى عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(addScrollTopButton, 1000);
+// تحسين أداء التمرير
+let ticking = false;
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            // أي كود يحتاج للتشغيل أثناء التمرير
+            ticking = false;
+        });
+        ticking = true;
+    }
 });
