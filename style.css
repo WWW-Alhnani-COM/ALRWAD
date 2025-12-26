@@ -848,3 +848,132 @@ img {
 body {
     overflow-x: hidden;
 }
+/* زر الهامبرجر للشاشات الصغيرة */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
+    transition: var(--transition);
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-toggle:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.98);
+        flex-direction: column;
+        padding: 100px 30px 30px;
+        gap: 0;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .nav-links li a {
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        width: 100%;
+        text-align: right;
+        transition: all 0.3s ease;
+        border-right: 3px solid transparent;
+    }
+    
+    .nav-links li a:hover,
+    .nav-links li a.active {
+        background: rgba(37, 211, 102, 0.1);
+        border-right: 3px solid var(--secondary-color);
+        transform: none;
+        padding-right: 25px;
+    }
+    
+    /* طبقة التعتيم */
+    .overlay-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .overlay-menu.active {
+        display: block;
+        opacity: 1;
+    }
+    
+    /* تأثير عند فتح القائمة */
+    body.menu-open {
+        overflow: hidden;
+    }
+    
+    /* تحسين زر الهامبرجر عند فتح القائمة */
+    .menu-toggle.active i {
+        transform: rotate(90deg);
+    }
+}
+
+/* تحسينات للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .nav-links {
+        width: 90%;
+        padding: 90px 20px 30px;
+    }
+    
+    .nav-links li a {
+        font-size: 1rem;
+        padding: 14px 18px;
+    }
+}
+
+/* تحسينات للشاشات المتوسطة */
+@media (min-width: 769px) {
+    .nav-links {
+        display: flex !important;
+    }
+    
+    .overlay-menu {
+        display: none !important;
+    }
+}
