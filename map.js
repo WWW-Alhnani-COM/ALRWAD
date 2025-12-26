@@ -3,14 +3,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('صفحة الخريطة جاهزة للعمل');
     
+    // تحديث السنة الحالية
+    updateCurrentYear();
+    
     // تهيئة وظائف الخريطة
     initMapPage();
     
     // ربط أحداث أزرار التحكم
     bindMapControls();
-    
-    // إعداد النسخ الذكي
-    setupCopyFunctionality();
     
     // تحسين تجربة المستخدم
     enhanceUserExperience();
@@ -18,9 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // تهيئة صفحة الخريطة
 function initMapPage() {
-    // تحديث السنة الحالية
-    updateCurrentYear();
-    
     // تعيين إحداثيات المكتب
     window.officeLocation = {
         lat: 16.8891341,
@@ -67,14 +64,6 @@ function bindMapControls() {
             e.preventDefault();
             getDirectionsToOffice();
         });
-    }
-}
-
-// إعداد وظيفة النسخ
-function setupCopyFunctionality() {
-    const copyBtn = document.querySelector('.copy-btn');
-    if (copyBtn) {
-        copyBtn.addEventListener('click', copyAddress);
     }
 }
 
@@ -131,7 +120,7 @@ function zoomMapIn() {
     iframe.src = newSrc;
     
     // عرض رسالة تأكيد
-    showToast('تم تكبير الخريطة', 'success');
+    showMessage('تم تكبير الخريطة', 'success');
 }
 
 // تصغير الخريطة
@@ -154,7 +143,7 @@ function zoomMapOut() {
     iframe.src = newSrc;
     
     // عرض رسالة تأكيد
-    showToast('تم تصغير الخريطة', 'success');
+    showMessage('تم تصغير الخريطة', 'success');
 }
 
 // إعادة تعيين عرض الخريطة
@@ -169,13 +158,13 @@ function resetMapView() {
     iframe.src = baseUrl;
     
     // عرض رسالة تأكيد
-    showToast('تم إعادة تعيين الخريطة', 'success');
+    showMessage('تم إعادة تعيين الخريطة', 'success');
 }
 
 // الحصول على اتجاهات إلى المكتب
 function getDirectionsToOffice() {
     if (!window.officeLocation || !window.officeLocation.address) {
-        showToast('عذراً، لا يمكن الحصول على الاتجاهات حالياً', 'error');
+        showMessage('عذراً، لا يمكن الحصول على الاتجاهات حالياً', 'error');
         return;
     }
     
@@ -186,52 +175,10 @@ function getDirectionsToOffice() {
     const newWindow = window.open(directionsUrl, '_blank', 'noopener,noreferrer');
     
     if (newWindow) {
-        showToast('جارٍ فتح خرائط جوجل للاتجاهات...', 'info');
+        showMessage('جارٍ فتح خرائط جوجل للاتجاهات...', 'info');
     } else {
-        showToast('عذراً، يرجى السماح بالنوافذ المنبثقة', 'warning');
+        showMessage('عذراً، يرجى السماح بالنوافذ المنبثقة', 'warning');
     }
-}
-
-// نسخ العنوان إلى الحافظة
-function copyAddress() {
-    const addressText = "GGDB7677، 2618، حي المطار، جازان 82722، السعودية";
-    
-    // استخدام Clipboard API الحديث
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(addressText)
-            .then(() => {
-                showToast('تم نسخ العنوان إلى الحافظة', 'success');
-            })
-            .catch(err => {
-                console.error('فشل النسخ:', err);
-                copyFallback(addressText);
-            });
-    } else {
-        // طريقة احتياطية للمتصفحات القديمة
-        copyFallback(addressText);
-    }
-}
-
-// طريقة احتياطية للنسخ
-function copyFallback(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        document.execCommand('copy');
-        showToast('تم نسخ العنوان إلى الحافظة', 'success');
-    } catch (err) {
-        console.error('فشل النسخ:', err);
-        showToast('فشل نسخ العنوان، يرجى نسخه يدوياً', 'error');
-    }
-    
-    document.body.removeChild(textArea);
 }
 
 // تحديث السنة الحالية
@@ -243,27 +190,27 @@ function updateCurrentYear() {
 }
 
 // عرض رسائل تأكيد
-function showToast(message, type = 'info') {
+function showMessage(message, type = 'info') {
     // إزالة أي رسالة سابقة
-    const existingToast = document.querySelector('.toast-message');
-    if (existingToast) {
-        existingToast.remove();
+    const existingMessage = document.querySelector('.message-toast');
+    if (existingMessage) {
+        existingMessage.remove();
     }
     
     // إنشاء عنصر الرسالة
-    const toast = document.createElement('div');
-    toast.className = `toast-message toast-${type}`;
-    toast.innerHTML = `
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message-toast message-${type}`;
+    messageDiv.innerHTML = `
         <span>${message}</span>
-        <button class="toast-close" aria-label="إغلاق">
+        <button class="message-close" aria-label="إغلاق">
             <i class="fas fa-times"></i>
         </button>
     `;
     
     // إضافة الأنماط
-    toast.style.cssText = `
+    messageDiv.style.cssText = `
         position: fixed;
-        top: 20px;
+        bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
         background: ${type === 'success' ? '#2ecc71' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
@@ -276,11 +223,11 @@ function showToast(message, type = 'info') {
         display: flex;
         align-items: center;
         gap: 15px;
-        animation: slideIn 0.3s ease-out;
+        animation: slideUp 0.3s ease-out;
     `;
     
     // زر الإغلاق
-    const closeBtn = toast.querySelector('.toast-close');
+    const closeBtn = messageDiv.querySelector('.message-close');
     closeBtn.style.cssText = `
         background: transparent;
         border: none;
@@ -293,33 +240,33 @@ function showToast(message, type = 'info') {
     `;
     
     closeBtn.addEventListener('click', () => {
-        toast.remove();
+        messageDiv.remove();
     });
     
     // إضافة الرسالة إلى الصفحة
-    document.body.appendChild(toast);
+    document.body.appendChild(messageDiv);
     
     // إضافة أنيميشن
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes slideIn {
-            from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100%); opacity: 0; }
             to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
         
-        @keyframes slideOut {
+        @keyframes slideDown {
             from { transform: translateX(-50%) translateY(0); opacity: 1; }
-            to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+            to { transform: translateX(-50%) translateY(100%); opacity: 0; }
         }
     `;
     document.head.appendChild(style);
     
     // إزالة الرسالة تلقائياً بعد 5 ثواني
     setTimeout(() => {
-        toast.style.animation = 'slideOut 0.3s ease-out forwards';
+        messageDiv.style.animation = 'slideDown 0.3s ease-out forwards';
         setTimeout(() => {
-            if (toast.parentNode) {
-                toast.remove();
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
             }
         }, 300);
     }, 5000);
