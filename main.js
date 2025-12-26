@@ -1,12 +1,6 @@
 // main.js - الملف الرئيسي لجافاسكريبت
 
 document.addEventListener('DOMContentLoaded', function() {
-    // رسالة ترحيب في console
-    console.log('%c🚀 مرحباً بك في موقع كفاءات العالم للاستقدام! %c\nتم التطوير بعناية لتجربة مستخدم متميزة.', 
-        'color: #25d366; font-size: 16px; font-weight: bold;',
-        'color: #3498db; font-size: 12px;'
-    );
-    
     // تحديث السنة الحالية في الفوتر
     updateCurrentYear();
     
@@ -22,17 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // إعداد تأثيرات التمرير
     setupScrollEffects();
     
-    // إعداد تحميل الصور الكسول
-    setupLazyLoading();
-    
     // إضافة زر التمرير لأعلى
     addScrollTopButton();
     
     // إعداد تأثيرات الظهور عند التمرير
     setupScrollAnimations();
-    
-    // تحسين تجربة اللمس
-    setupTouchOptimization();
 });
 
 // تحديث السنة الحالية
@@ -84,9 +72,6 @@ function setupHamburgerMenu() {
         // إخفاء شريط التمرير
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
-        
-        // تسجيل الحدث
-        logEvent('menu_open', 'navigation');
     }
     
     // إغلاق القائمة
@@ -151,6 +136,8 @@ function setupHamburgerMenu() {
     });
 }
 
+// باقي الدوال كما هي...
+
 // تحسين التنقل السلس
 function setupSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -176,9 +163,6 @@ function setupSmoothScrolling() {
                     
                     // تحديث URL بدون إعادة تحميل الصفحة
                     history.pushState(null, null, href);
-                    
-                    // تسجيل الحدث
-                    logEvent('smooth_scroll', 'navigation', href);
                 }
             }
         });
@@ -197,14 +181,6 @@ function setupLoadingEffects() {
         
         logo.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1)';
-        });
-        
-        // تأثير النقر
-        logo.addEventListener('click', function() {
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
         });
     }
     
@@ -225,44 +201,6 @@ function setupLoadingEffects() {
                 icon.style.transform = 'scale(1) rotate(0deg)';
             }
         });
-        
-        // تأثير النقر
-        item.addEventListener('click', function() {
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-    
-    // تأثيرات للأزرار
-    const buttons = document.querySelectorAll('.btn-whatsapp, .btn-outline');
-    buttons.forEach(button => {
-        button.addEventListener('mousedown', function() {
-            this.style.transform = 'scale(0.95)';
-        });
-        
-        button.addEventListener('mouseup', function() {
-            this.style.transform = 'scale(1)';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-        });
-    });
-    
-    // تأثيرات لعناصر الميزات
-    const features = document.querySelectorAll('.feature-item');
-    features.forEach((feature, index) => {
-        feature.style.setProperty('--item-index', index);
-        
-        feature.addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
-        });
-        
-        feature.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.05)';
-        });
     });
 }
 
@@ -270,8 +208,6 @@ function setupLoadingEffects() {
 function setupScrollEffects() {
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
-    
-    let lastScrollTop = 0;
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -286,60 +222,7 @@ function setupScrollEffects() {
             navbar.style.boxShadow = 'none';
             navbar.style.padding = '20px 5%';
         }
-        
-        // تأثير إظهار/إخفاء الهيدر عند التمرير (لشاشات الكبيرة فقط)
-        if (window.innerWidth > 768) {
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // التمرير لأسفل
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                // التمرير لأعلى
-                navbar.style.transform = 'translateY(0)';
-            }
-        }
-        
-        navbar.style.transition = 'all 0.3s ease';
-        lastScrollTop = scrollTop;
     });
-}
-
-// إعداد تحميل الصور الكسول
-function setupLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    if (images.length === 0) return;
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                
-                // استبدال src بالصورة الحقيقية
-                img.src = img.dataset.src;
-                
-                // إزالة سمة data-src
-                delete img.dataset.src;
-                
-                // إضافة تأثير عند تحميل الصورة
-                img.onload = function() {
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.5s ease';
-                    
-                    setTimeout(() => {
-                        img.style.opacity = '1';
-                    }, 50);
-                };
-                
-                // إيقاف مراقبة الصورة
-                observer.unobserve(img);
-            }
-        });
-    }, {
-        rootMargin: '50px',
-        threshold: 0.1
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
 }
 
 // إضافة زر التمرير لأعلى
@@ -386,7 +269,6 @@ function addScrollTopButton() {
             top: 0,
             behavior: 'smooth'
         });
-        logEvent('scroll_to_top', 'navigation');
     });
     
     // التحكم في ظهور الزر عند التمرير
@@ -432,124 +314,3 @@ function setupScrollAnimations() {
         observer.observe(element);
     });
 }
-
-// تحسين تجربة اللمس
-function setupTouchOptimization() {
-    // منع السلوك الافتراضي لبعض الأحداث
-    document.addEventListener('touchstart', function(e) {
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-            e.target.classList.add('active');
-        }
-    }, { passive: true });
-    
-    document.addEventListener('touchend', function(e) {
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-            e.target.classList.remove('active');
-        }
-    }, { passive: true });
-    
-    // منع تكبير النص عند النقر المزدوج على الجوال
-    document.addEventListener('touchstart', function(e) {
-        if (e.touches.length > 1) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            e.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
-}
-
-// وظائف عامة
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-// دالة للتحقق من صحة البريد الإلكتروني
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// دالة للتحقق من صحة رقم الهاتف السعودي
-function isValidSaudiPhone(phone) {
-    const phoneRegex = /^(009665|9665|\+9665|05)([0-9]{8})$/;
-    return phoneRegex.test(phone);
-}
-
-// دالة تسجيل الأحداث (لأغراض التحليل)
-function logEvent(eventName, eventCategory, eventLabel = null) {
-    // يمكنك تفعيل Google Analytics هنا
-    /*
-    if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
-            'event_category': eventCategory,
-            'event_label': eventLabel
-        });
-    }
-    */
-    
-    // أو استخدام console.log لأغراض التطوير
-    console.log(`Event: ${eventName}, Category: ${eventCategory}, Label: ${eventLabel || 'N/A'}`);
-}
-
-// دالة مساعدة لإضافة تأثير النقر
-function addClickEffect(element) {
-    element.addEventListener('mousedown', function() {
-        this.style.transform = 'scale(0.95)';
-    });
-    
-    element.addEventListener('mouseup', function() {
-        this.style.transform = 'scale(1)';
-    });
-    
-    element.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
-    
-    // لدعم اللمس
-    element.addEventListener('touchstart', function() {
-        this.style.transform = 'scale(0.95)';
-    });
-    
-    element.addEventListener('touchend', function() {
-        this.style.transform = 'scale(1)';
-    });
-}
-
-// تطبيق تأثير النقر على جميع الأزرار المهمة
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        const interactiveElements = document.querySelectorAll('button, .btn-whatsapp, .btn-outline, .feature-item, .stat-item');
-        interactiveElements.forEach(element => {
-            addClickEffect(element);
-        });
-    }, 1000);
-});
-
-// منع حفظ الصور
-document.addEventListener('contextmenu', function(e) {
-    if (e.target.nodeName === 'IMG') {
-        e.preventDefault();
-    }
-});
-
-// تحسين أداء التمرير
-let ticking = false;
-window.addEventListener('scroll', function() {
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            // أي كود يحتاج للتشغيل أثناء التمرير
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
