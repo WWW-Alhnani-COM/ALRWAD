@@ -504,6 +504,195 @@
         .map-hero-content, .map-container-section, .contact-info-section, .hours-section {
             animation: fadeIn 1s ease-out;
         }
+                /* قسم التواصل */
+        .contact-cta-section {
+            padding: 80px 8%;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .contact-cta-section .section-title {
+            color: white;
+        }
+
+        .contact-cta-section .section-title::after {
+            background: white;
+        }
+
+        .contact-cta-section .map-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        .whatsapp-cta {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .whatsapp-info {
+            flex: 1;
+            text-align: right;
+        }
+
+        .whatsapp-info h3 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .whatsapp-info p {
+            color: #666;
+            font-size: 1.1rem;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+            white-space: nowrap;
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(45deg, #128c7e, #25d366);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            width: 180px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-method i {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contact-method h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .contact-method p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* تحسينات للجوال لقسم التواصل */
+        @media (max-width: 768px) {
+            .contact-cta-section {
+                padding: 60px 5%;
+            }
+            
+            .whatsapp-cta {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            
+            .whatsapp-info {
+                text-align: center;
+            }
+            
+            .whatsapp-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .contact-methods {
+                gap: 20px;
+            }
+            
+            .contact-method {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .whatsapp-cta {
+                padding: 25px 15px;
+            }
+            
+            .whatsapp-icon {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .whatsapp-icon i {
+                font-size: 35px;
+            }
+            
+            .whatsapp-btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+            
+            .contact-method {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
