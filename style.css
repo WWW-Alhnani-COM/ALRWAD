@@ -28,24 +28,13 @@ body, html {
     scroll-behavior: smooth;
 }
 
-/* تحسينات للشاشات الكبيرة جداً */
-@media (min-width: 1600px) {
-    .container {
-        max-width: 1400px !important;
-    }
-    
-    .hero-content h1 {
-        font-size: 4.2rem !important;
-    }
-}
-
 /* ===== NAVBAR ===== */
 .navbar {
     position: fixed;
     top: 0;
     right: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1100;
     padding: 15px 5%;
     display: flex;
     justify-content: space-between;
@@ -74,7 +63,7 @@ body, html {
     font-weight: 800;
     font-family: 'Cairo', sans-serif;
     letter-spacing: -0.5px;
-    z-index: 1002;
+    z-index: 1102;
     transition: var(--transition);
 }
 
@@ -102,7 +91,7 @@ body, html {
     color: var(--white);
     font-size: 1.8rem;
     cursor: pointer;
-    z-index: 1003;
+    z-index: 1102;
     padding: 8px;
     width: 44px;
     height: 44px;
@@ -110,7 +99,6 @@ body, html {
     transition: var(--transition);
     align-items: center;
     justify-content: center;
-    position: relative;
 }
 
 .menu-toggle:hover {
@@ -156,10 +144,11 @@ body, html {
         padding: 100px 30px 30px;
         gap: 0;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1001;
+        z-index: 1101;
         box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
         border-left: 1px solid rgba(255, 255, 255, 0.1);
         margin: 0;
+        overflow-y: auto;
     }
     
     .nav-links.active {
@@ -223,7 +212,7 @@ body, html {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
+    z-index: 1099;
     opacity: 0;
     transition: opacity 0.3s ease;
     cursor: pointer;
@@ -259,7 +248,7 @@ body.menu-open {
     }
 }
 
-/* إخفاء القائمة على الشاشات الكبيرة */
+/* إظهار القائمة على الشاشات الكبيرة */
 @media (min-width: 769px) {
     .nav-links {
         display: flex !important;
@@ -271,6 +260,7 @@ body.menu-open {
         border-left: none !important;
         padding: 0 !important;
         flex-direction: row !important;
+        z-index: auto !important;
     }
     
     .nav-links::before {
@@ -315,7 +305,7 @@ body.menu-open {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    padding-top: 80px; /* مسافة للـ navbar الثابت */
+    padding-top: 80px;
 }
 
 @media (min-width: 768px) {
@@ -966,7 +956,7 @@ body.menu-open {
     }
 }
 
-/* تحسينات إمكانية الوصول */
+/* ===== تحسينات إمكانية الوصول ===== */
 :focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 3px;
@@ -976,7 +966,7 @@ body.menu-open {
     outline: none;
 }
 
-/* تحسينات للأجهزة التي تدعم hover */
+/* ===== تحسينات للأجهزة التي تدعم hover ===== */
 @media (hover: hover) and (pointer: fine) {
     .nav-links li a:hover {
         background: rgba(37, 211, 102, 0.15);
@@ -987,7 +977,7 @@ body.menu-open {
     }
 }
 
-/* تأثيرات هامر للجوال */
+/* ===== تأثيرات هامر للجوال ===== */
 @media (hover: none) and (pointer: coarse) {
     .btn-whatsapp, .btn-outline, .nav-links li a {
         min-height: 44px;
@@ -1006,7 +996,7 @@ body.menu-open {
     }
 }
 
-/* تحسينات للوضع الأفقي على الجوال */
+/* ===== تحسينات للوضع الأفقي على الجوال ===== */
 @media (max-height: 600px) and (orientation: landscape) {
     .hero-section {
         min-height: 120vh;
@@ -1029,21 +1019,29 @@ body.menu-open {
     .cta-buttons {
         margin-top: 20px;
     }
+    
+    .nav-links {
+        padding-top: 70px;
+    }
+    
+    .nav-links::before {
+        top: 20px;
+    }
 }
 
-/* منع التمرير الأفقي */
+/* ===== منع التمرير الأفقي ===== */
 body {
     overflow-x: hidden;
 }
 
-/* تحسين الأداء للصور */
+/* ===== تحسين الأداء للصور ===== */
 img {
     max-width: 100%;
     height: auto;
     display: block;
 }
 
-/* تحسينات للوضع الليلي */
+/* ===== تحسينات للوضع الليلي ===== */
 @media (prefers-color-scheme: dark) {
     .content-section {
         background: #1a1a1a;
@@ -1066,9 +1064,13 @@ img {
     .feature-item p {
         color: #bbb;
     }
+    
+    .content-section p, .content-section li {
+        color: #bbb;
+    }
 }
 
-/* زر العودة للأعلى */
+/* ===== زر العودة للأعلى ===== */
 #scrollTopBtn {
     position: fixed;
     bottom: 30px;
@@ -1099,4 +1101,169 @@ img {
     background: var(--secondary-color);
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* ===== تحسينات للشاشات الكبيرة جداً ===== */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1400px !important;
     }
+    
+    .hero-content h1 {
+        font-size: 4.2rem !important;
+    }
+    
+    .hero-content p {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ===== تحسينات للطباعة ===== */
+@media print {
+    .navbar, .menu-toggle, .overlay-menu, #scrollTopBtn, .cta-buttons {
+        display: none !important;
+    }
+    
+    body {
+        color: #000;
+        background: #fff;
+    }
+    
+    .hero-section {
+        padding-top: 0;
+        min-height: auto;
+    }
+    
+    .content-section {
+        padding: 40px 5%;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+}
+
+/* ===== تحسينات لشاشات التلفاز والـ Smart TV ===== */
+@media (min-width: 1920px) {
+    .navbar {
+        padding: 25px 10%;
+    }
+    
+    .hero-content h1 {
+        font-size: 4.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.6rem;
+        max-width: 1000px;
+    }
+    
+    .btn-whatsapp, .btn-outline {
+        padding: 22px 50px;
+        font-size: 1.3rem;
+    }
+    
+    .content-section h2 {
+        font-size: 3rem;
+    }
+    
+    .content-section p {
+        font-size: 1.4rem;
+    }
+}
+
+/* ===== إصلاحات خاصة لمتصفح Safari ===== */
+@supports (-webkit-touch-callout: none) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+    
+    .navbar {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+    }
+}
+
+/* ===== تحسينات للأجهزة ذات الشاشات الصغيرة جداً ===== */
+@media (max-width: 360px) {
+    .logo {
+        font-size: 22px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .btn-whatsapp, .btn-outline {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+    
+    .nav-links {
+        width: 95%;
+        padding: 80px 15px 30px;
+    }
+}
+
+/* ===== حل نهائي لمنع ظهور القائمة تحت الهيدر ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        top: 0 !important;
+    }
+    
+    .navbar {
+        z-index: 1100 !important;
+    }
+    
+    .overlay-menu {
+        z-index: 1099 !important;
+    }
+    
+    .nav-links.active {
+        z-index: 1101 !important;
+    }
+    
+    .menu-toggle {
+        z-index: 1102 !important;
+    }
+}
+
+/* ===== تحسينات للأنيميشن على الأجهزة الضعيفة ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ===== تحسينات للخطوط العربية ===== */
+@font-face {
+    font-family: 'Tajawal';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Amiri';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cairo';
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Changa';
+    font-display: swap;
+        }
