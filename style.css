@@ -84,35 +84,42 @@ body, html {
 }
 /* تنسيق هيدر الفوتر (الصور الثلاث) */
 .footer-logos-header {
+    background-color: #ffffff; /* لون الخلفية أبيض */
     display: flex;
-    justify-content: center; /* توسيط الصور */
+    justify-content: center;
     align-items: center;
-    gap: 50px; /* المسافة بين الصور */
-    padding: 30px 0;
-    flex-wrap: wrap; /* لترتيبها تحت بعض في الجوال */
+    gap: 60px;
+    padding: 40px 0;
+    flex-wrap: wrap;
+    width: 100%; /* لضمان ملء العرض بالكامل */
 }
-
-.logo-item img {
-    max-width: 150px; /* تحكم في عرض الصور */
-    height: auto;
-    filter: grayscale(100%); /* اختياري: جعل الصور أبيض وأسود */
-    opacity: 0.7;
-    transition: all 0.3s ease;
+.footer-logos-header .logo-item img {
+    max-height: 70px; /* التحكم في ارتفاع الصور */
+    width: auto;
+    display: block;
+    
+    /* إذا كانت الصور ملونة وتريد تركها كما هي، احذف سطر الفلتر بالأسفل */
+    /* filter: grayscale(100%); */ /* اختياري: لجعل الصور رمادية لتناسب التصميم */
+    
+    transition: transform 0.3s ease;
 }
 
 .logo-item img:hover {
     filter: grayscale(0%); /* تلوين الصورة عند مرور الماوس */
     opacity: 1;
+    
+    transform: scale(1.1);
+}
+.footer-logos-header .logo-item img:hover {
     transform: scale(1.1);
 }
 
 .footer-divider {
     border: 0;
     height: 1px;
-    background: rgba(255,255,255,0.1); /* خط فاصل بسيط */
-    margin: 0 8%;
+    background: #eeeeee; /* لون رمادي فاتح جداً للفاصل */
+    margin: 0;
 }
-
 /* تحسين للجوال */
 @media (max-width: 768px) {
     .footer-logos-header {
