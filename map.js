@@ -23,7 +23,7 @@ function initMapPage() {
         lat: 16.8891341,
         lng: 42.5767392,
         address: "GGDB7677، 2618، حي المطار، جازان 82722، السعودية",
-        phone: "+966552425251",
+        phone: "",
         email: "info@alkfaih.com"
     };
 }
